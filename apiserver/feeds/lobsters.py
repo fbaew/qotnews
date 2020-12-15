@@ -44,7 +44,8 @@ def feed():
     return [x['short_id'] for x in api(API_HOTTEST) or []]
 
 def unix(date_str):
-    return int(datetime.strptime(date_str, '%Y-%m-%dT%H:%M:%S.%f%z').timestamp())
+    date_str = date_str.replace(':', '')
+    return int(datetime.strptime(date_str, '%Y-%m-%dT%H%M%S.%f%z').timestamp())
 
 def make_comment(i):
     c = {}
