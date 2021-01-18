@@ -68,12 +68,13 @@ def get_reflist(amount):
     q = session.query(Reflist).order_by(Reflist.rid.desc()).limit(amount)
     return [dict(ref=x.ref, sid=x.sid, source=x.source) for x in q.all()]
 
-def get_stories(amount):
+def get_stories(amount, skip=0):
     session = Session()
     q = session.query(Reflist, Story.meta_json).\
             order_by(Reflist.rid.desc()).\
             join(Story).\
             filter(Story.title != None).\
+            offset(skip).\
             limit(amount)
     return [x[1] for x in q]
 

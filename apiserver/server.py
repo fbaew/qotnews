@@ -42,7 +42,9 @@ cors = CORS(flask_app)
 
 @flask_app.route('/api')
 def api():
-    stories = database.get_stories(FEED_LENGTH)
+    skip = request.args.get('skip', 0)
+    limit = request.args.get('limit', FEED_LENGTH)
+    stories = database.get_stories(limit, skip)
     # hacky nested json
     res = Response('{"stories":[' + ','.join(stories) + ']}')
     res.headers['content-type'] = 'application/json'
