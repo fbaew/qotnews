@@ -67,19 +67,19 @@ def get_article(url):
 
 def get_content_type(url):
     try:
+        headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:77.0) Gecko/20100101 Firefox/77.0'}
+        return requests.get(url, headers=headers, timeout=5).headers['content-type']
+    except:
+        return ''
+
+    try:
         headers = {
             'User-Agent': 'Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)',
             'X-Forwarded-For': '66.249.66.1',
         }
-        return requests.get(url, headers=headers, timeout=5).headers['content-type']
-    except:
-        pass
-
-    try:
-        headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:77.0) Gecko/20100101 Firefox/77.0'}
         return requests.get(url, headers=headers, timeout=10).headers['content-type']
     except:
-        return ''
+        pass
 
 def update_story(story, is_manual=False):
     res = {}
@@ -133,7 +133,7 @@ if __name__ == '__main__':
 
     #print(get_article('https://www.bloomberg.com/news/articles/2019-09-23/xi-s-communists-under-pressure-as-high-prices-hit-china-workers'))
 
-    a = get_article('https://blog.joinmastodon.org/2019/10/mastodon-3.0/')
+    a = get_content_type('https://tefkos.comminfo.rutgers.edu/Courses/e530/Readings/Beal%202008%20full%20text%20searching.pdf')
     print(a)
 
     print('done')
