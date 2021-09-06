@@ -7,51 +7,34 @@ import requests
 
 MEILI_URL = 'http://127.0.0.1:7700/'
 
-def create_index():
+def meili_api(method, route, json=None, params=None):
     try:
-        json = dict(name='qotnews', uid='qotnews')
-        r = requests.post(MEILI_URL + 'indexes', json=json, timeout=2)
-        if r.status_code != 201:
+        r = method(MEILI_URL + route, json=json, params=params, timeout=4)
+        if r.status_code > 299:
             raise Exception('Bad response code ' + str(r.status_code))
         return r.json()
     except KeyboardInterrupt:
         raise
     except BaseException as e:
-        logging.error('Problem creating MeiliSearch index: {}'.format(str(e)))
+        logging.error('Problem with MeiliSearch api route: %s: %s', route, str(e))
         return False
+
+def create_index():
+    json = dict(uid='qotnews', primaryKey='id')
+    return meili_api(requests.post, 'indexes', json=json)
 
 def update_rankings():
-    try:
-        json = ['typo', 'words', 'proximity', 'attribute', 'desc(date)', 'wordsPosition', 'exactness']
-        r = requests.post(MEILI_URL + 'indexes/qotnews/settings/ranking-rules', json=json, timeout=2)
-        if r.status_code != 202:
-            raise Exception('Bad response code ' + str(r.status_code))
-        return r.json()
-    except KeyboardInterrupt:
-        raise
-    except BaseException as e:
-        logging.error('Problem setting MeiliSearch ranking rules: {}'.format(str(e)))
-        return False
+    json = ['typo', 'words', 'proximity', 'attribute', 'desc(date)', 'wordsPosition', 'exactness']
+    return meili_api(requests.post, 'indexes/qotnews/settings/ranking-rules', json=json)
 
 def update_attributes():
-    try:
-        json = ['title', 'url', 'author', 'link', 'id']
-        r = requests.post(MEILI_URL + 'indexes/qotnews/settings/searchable-attributes', json=json, timeout=2)
-        if r.status_code != 202:
-            raise Exception('Bad response code ' + str(r.status_code))
-        return r.json()
-        r = requests.delete(MEILI_URL + 'indexes/qotnews/settings/displayed-attributes', timeout=2)
-        if r.status_code != 202:
-            raise Exception('Bad response code ' + str(r.status_code))
-        return r.json()
-    except KeyboardInterrupt:
-        raise
-    except BaseException as e:
-        logging.error('Problem setting MeiliSearch searchable attributes: {}'.format(str(e)))
-        return False
+    json = ['title', 'url', 'author', 'link', 'id']
+    r = meili_api(requests.post, 'indexes/qotnews/settings/searchable-attributes', json=json)
+    meili_api(requests.delete, 'indexes/qotnews/settings/displayed-attributes', json=json)
+    return r
 
 def init():
-    create_index()
+    print(create_index())
     update_rankings()
     update_attributes()
 
@@ -59,31 +42,14 @@ def put_story(story):
     story = story.copy()
     story.pop('text', None)
     story.pop('comments', None)
-    try:
-        r = requests.post(MEILI_URL + 'indexes/qotnews/documents', json=[story], timeout=2)
-        if r.status_code != 202:
-            raise Exception('Bad response code ' + str(r.status_code))
-        return r.json()
-    except KeyboardInterrupt:
-        raise
-    except BaseException as e:
-        logging.error('Problem putting MeiliSearch story: {}'.format(str(e)))
-        return False
+    return meili_api(requests.post, 'indexes/qotnews/documents', [story])
 
 def search(q):
-    try:
-        params = dict(q=q, limit=250)
-        r = requests.get(MEILI_URL + 'indexes/qotnews/search', params=params, timeout=2)
-        if r.status_code != 200:
-            raise Exception('Bad response code ' + str(r.status_code))
-        return r.json()['hits']
-    except KeyboardInterrupt:
-        raise
-    except BaseException as e:
-        logging.error('Problem searching MeiliSearch: {}'.format(str(e)))
-        return False
+    params = dict(q=q, limit=250)
+    r = meili_api(requests.get, 'indexes/qotnews/search', params=params)
+    return r['hits']
     
 if __name__ == '__main__':
-    create_index()
+    init()
 
-    print(search('the'))
+    print(search('qot'))
