@@ -65,6 +65,8 @@ def submit():
         url = request.form['url']
         nid = new_id()
 
+        logging.info('Manual submission: ' + url)
+
         parse = urlparse(url)
         if 'news.ycombinator.com' in parse.hostname:
             source = 'hackernews'
@@ -200,7 +202,7 @@ def feed_thread():
     except KeyboardInterrupt:
         logging.info('Ending feed thread...')
     except ValueError as e:
-        logging.error('feed_thread error: {} {}'.format(e.__class__.__name__, e))
+        logging.critical('feed_thread error: {} {}'.format(e.__class__.__name__, e))
         http_server.stop()
 
 print('Starting Feed thread...')

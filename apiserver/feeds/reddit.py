@@ -33,10 +33,10 @@ def feed():
     except KeyboardInterrupt:
         raise
     except PRAWException as e:
-        logging.error('Problem hitting reddit API: {}'.format(str(e)))
+        logging.critical('Problem hitting reddit API: {}'.format(str(e)))
         return []
     except PrawcoreException as e:
-        logging.error('Problem hitting reddit API: {}'.format(str(e)))
+        logging.critical('Problem hitting reddit API: {}'.format(str(e)))
         return []
 
 def comment(i):
@@ -84,10 +84,10 @@ def story(ref):
     except KeyboardInterrupt:
         raise
     except PRAWException as e:
-        logging.error('Problem hitting reddit API: {}'.format(str(e)))
+        logging.critical('Problem hitting reddit API: {}'.format(str(e)))
         return False
     except PrawcoreException as e:
-        logging.error('Problem hitting reddit API: {}'.format(str(e)))
+        logging.critical('Problem hitting reddit API: {}'.format(str(e)))
         return False
 
 # scratchpad so I can quickly develop the parser

@@ -34,7 +34,7 @@ def api(route):
     except KeyboardInterrupt:
         raise
     except BaseException as e:
-        logging.error('Problem hitting tildes website: {}'.format(str(e)))
+        logging.critical('Problem hitting tildes website: {}'.format(str(e)))
         return False
 
 def feed():
@@ -113,7 +113,7 @@ def story(ref):
 
 # scratchpad so I can quickly develop the parser
 if __name__ == '__main__':
-    #print(feed())
+    print(feed())
     #normal = story('gxt')
     #print(normal)
     #no_comments = story('gxr')
@@ -122,8 +122,8 @@ if __name__ == '__main__':
     #print(self_post)
     #li_comment = story('gqx')
     #print(li_comment)
-    broken = story('q4y')
-    print(broken)
+    #broken = story('q4y')
+    #print(broken)
 
     # make sure there's no self-reference
     #import copy
