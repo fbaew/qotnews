@@ -24,13 +24,14 @@ def create_index():
     return meili_api(requests.post, 'indexes', json=json)
 
 def update_rankings():
-    json = ['typo', 'words', 'proximity', 'attribute', 'desc(date)', 'wordsPosition', 'exactness']
+    json = ['typo', 'words', 'proximity', 'date:desc', 'exactness']
     return meili_api(requests.post, 'indexes/qotnews/settings/ranking-rules', json=json)
 
 def update_attributes():
-    json = ['title', 'url', 'author', 'link', 'id']
+    json = ['title']
     r = meili_api(requests.post, 'indexes/qotnews/settings/searchable-attributes', json=json)
-    meili_api(requests.delete, 'indexes/qotnews/settings/displayed-attributes', json=json)
+    json = ['id']
+    r = meili_api(requests.post, 'indexes/qotnews/settings/displayed-attributes', json=json)
     return r
 
 def init():
@@ -39,10 +40,8 @@ def init():
     update_attributes()
 
 def put_story(story):
-    story = story.copy()
-    story.pop('text', None)
-    story.pop('comments', None)
-    return meili_api(requests.post, 'indexes/qotnews/documents', [story])
+    to_add = dict(title=story['title'], id=story['id'], date=story['date'])
+    return meili_api(requests.post, 'indexes/qotnews/documents', [to_add])
 
 def search(q):
     params = dict(q=q, limit=250)
@@ -51,5 +50,7 @@ def search(q):
     
 if __name__ == '__main__':
     init()
+
+    print(update_rankings())
 
     print(search('qot'))

@@ -57,7 +57,11 @@ def apisearch():
         results = search.search(q)
     else:
         results = []
-    return dict(results=results)
+    story_metas = [database.get_story(x['id']).meta_json for x in results]
+    # hacky nested json
+    res = Response('{"results":[' + ','.join(story_metas) + ']}')
+    res.headers['content-type'] = 'application/json'
+    return res
 
 @flask_app.route('/api/submit', methods=['POST'], strict_slashes=False)
 def submit():
