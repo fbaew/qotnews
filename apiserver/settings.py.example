@@ -6,8 +6,13 @@
 # set to 0 to disable that site
 NUM_HACKERNEWS = 15
 NUM_LOBSTERS = 10
-NUM_REDDIT = 10
+NUM_REDDIT = 15
 NUM_TILDES = 5
+
+# Meilisearch server URL
+# Leave blank if not using search
+#MEILI_URL = 'http://127.0.0.1:7700/'
+MEILI_URL = ''
 
 # Reddit account info
 # leave blank if not using Reddit
@@ -25,9 +30,7 @@ SUBREDDITS = [
     'PhilosophyofScience',
     'StateOfTheUnion',
     'TheAgora',
-    'TrueFilm',
     'TrueReddit',
-    'UniversityofReddit',
     'culturalstudies',
     'hardscience',
     'indepthsports',
@@ -37,6 +40,6 @@ SUBREDDITS = [
     'resilientcommunities',
     'worldevents',
     'StallmanWasRight',
-    'DarkFuturology',
     'EverythingScience',
+    'longevity',
 ]

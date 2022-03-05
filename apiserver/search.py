@@ -4,12 +4,13 @@ logging.basicConfig(
         level=logging.DEBUG)
 
 import requests
+import settings
 
-MEILI_URL = 'http://127.0.0.1:7700/'
+SEARCH_ENABLED = bool(settings.MEILI_URL)
 
 def meili_api(method, route, json=None, params=None):
     try:
-        r = method(MEILI_URL + route, json=json, params=params, timeout=4)
+        r = method(settings.MEILI_URL + route, json=json, params=params, timeout=4)
         if r.status_code > 299:
             raise Exception('Bad response code ' + str(r.status_code))
         return r.json()
@@ -35,15 +36,20 @@ def update_attributes():
     return r
 
 def init():
+    if not SEARCH_ENABLED:
+        logging.info('Search is not enabled, skipping init.')
+        return
     print(create_index())
     update_rankings()
     update_attributes()
 
 def put_story(story):
+    if not SEARCH_ENABLED: return
     to_add = dict(title=story['title'], id=story['id'], date=story['date'])
     return meili_api(requests.post, 'indexes/qotnews/documents', [to_add])
 
 def search(q):
+    if not SEARCH_ENABLED: return []
     params = dict(q=q, limit=250)
     r = meili_api(requests.get, 'indexes/qotnews/search', params=params)
     return r['hits']
