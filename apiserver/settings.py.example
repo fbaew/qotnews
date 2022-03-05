@@ -14,6 +14,10 @@ NUM_TILDES = 5
 #MEILI_URL = 'http://127.0.0.1:7700/'
 MEILI_URL = ''
 
+# Readerserver URL
+# Leave blank if not using, but that defeats the whole point
+READER_URL = 'http://127.0.0.1:33843/'
+
 # Reddit account info
 # leave blank if not using Reddit
 REDDIT_CLIENT_ID = ''

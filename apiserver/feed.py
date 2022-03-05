@@ -54,8 +54,12 @@ def get_article(url):
 
     logging.info('Trying our server instead...')
 
+    if not settings.READER_URL:
+        logging.info('Readerserver not configured, aborting.')
+        return ''
+
     try:
-        r = requests.post(READ_API, data=dict(url=url), timeout=20)
+        r = requests.post(settings.READER_URL, data=dict(url=url), timeout=20)
         if r.status_code != 200:
             raise Exception('Bad response code ' + str(r.status_code))
         return r.text
