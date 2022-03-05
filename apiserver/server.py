@@ -169,9 +169,10 @@ def feed_thread():
                         continue
                     try:
                         nid = new_id()
+                        logging.info('Adding ref: {}, id: {}, source: {}'.format(ref, nid, source))
                         database.put_ref(ref, nid, source)
-                        logging.info('Added ref ' + ref)
                     except database.IntegrityError:
+                        logging.info('Already have ID / ref, skipping.')
                         continue
 
             ref_list = database.get_reflist(FEED_LENGTH)
@@ -186,7 +187,7 @@ def feed_thread():
                 except AttributeError:
                     story = dict(id=item['sid'], ref=item['ref'], source=item['source'])
 
-                logging.info('Updating story: ' + str(story['ref']) + ', index: ' + str(news_index))
+                logging.info('Updating {} story: {}, index: {}'.format(story['source'], story['ref'], news_index))
 
                 valid = feed.update_story(story)
                 if valid:
@@ -209,10 +210,10 @@ def feed_thread():
         logging.critical('feed_thread error: {} {}'.format(e.__class__.__name__, e))
         http_server.stop()
 
-print('Starting Feed thread...')
+logging.info('Starting Feed thread...')
 gevent.spawn(feed_thread)
 
-print('Starting HTTP thread...')
+logging.info('Starting HTTP thread...')
 try:
     http_server.serve_forever()
 except KeyboardInterrupt:

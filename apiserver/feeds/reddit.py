@@ -59,7 +59,9 @@ def comment(i):
 def story(ref):
     try:
         r = reddit.submission(ref)
-        if not r: return False
+        if not r:
+            logging.info('Bad Reddit API response.')
+            return False
 
         s = {}
         s['author'] = r.author.name if r.author else '[Deleted]'
@@ -74,6 +76,7 @@ def story(ref):
         s['num_comments'] = r.num_comments
 
         if s['score'] < 25 and s['num_comments'] < 10:
+            logging.info('Score ({}) or num comments ({}) below threshold.'.format(s['score'], s['num_comments']))
             return False
 
         if r.selftext:

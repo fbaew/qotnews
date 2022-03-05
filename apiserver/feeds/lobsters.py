@@ -81,7 +81,9 @@ def iter_comments(flat_comments):
 
 def story(ref):
     r = api(API_ITEM, ref)
-    if not r: return False
+    if not r:
+        logging.info('Bad Lobsters API response.')
+        return False
 
     s = {}
     try:

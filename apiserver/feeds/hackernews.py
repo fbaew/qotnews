@@ -61,11 +61,15 @@ def comment_count(i):
 
 def story(ref):
     r = api(API_ITEM, ref)
-    if not r: return False
+    if not r:
+        logging.info('Bad Hackernews API response.')
+        return False
 
     if 'deleted' in r:
+        logging.info('Story was deleted.')
         return False
     elif r.get('type', '') != 'story':
+        logging.info('Type "{}" is not "story".'.format(r.get('type', '')))
         return False
 
     s = {}

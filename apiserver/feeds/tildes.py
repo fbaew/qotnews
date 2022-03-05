@@ -71,11 +71,15 @@ def story(ref):
         html = api(SITE_LINK(group_lookup[ref], ref))
     else:
         html = api(API_ITEM(ref))
-    if not html: return False
+    if not html:
+        logging.info('Bad Tildes API response.')
+        return False
 
     soup = BeautifulSoup(html, features='html.parser')
     a = soup.find('article', class_='topic-full')
-    if a is None: return False
+    if a is None:
+        logging.info('Tildes <article> element not found.')
+        return False
 
     h = a.find('header')
     lu = h.find('a', class_='link-user')
@@ -83,6 +87,7 @@ def story(ref):
     error = a.find('div', class_='text-error')
     if error:
         if 'deleted' in error.string or 'removed' in error.string:
+            logging.info('Article was deleted or removed.')
             return False
 
     s = {}
@@ -103,6 +108,7 @@ def story(ref):
     s['num_comments'] = int(ch.h2.string.split(' ')[0]) if ch else 0
 
     if s['score'] < 8 and s['num_comments'] < 6:
+        logging.info('Score ({}) or num comments ({}) below threshold.'.format(s['score'], s['num_comments']))
         return False
 
     td = a.find('div', class_='topic-full-text')

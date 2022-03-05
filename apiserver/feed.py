@@ -34,6 +34,10 @@ def get_article(url):
         logging.info('Readerserver not configured, aborting.')
         return ''
 
+    if url.startswith('https://twitter.com'):
+        logging.info('Replacing twitter.com url with nitter.net')
+        url = url.replace('twitter.com', 'nitter.net')
+
     try:
         r = requests.post(settings.READER_URL, data=dict(url=url), timeout=20)
         if r.status_code != 200:
@@ -82,7 +86,7 @@ def update_story(story, is_manual=False):
         return False
 
     if story['date'] and not is_manual and story['date'] + TWO_DAYS < time.time():
-        logging.info('Story too old, removing')
+        logging.info('Story too old, removing. Date: {}'.format(story['date']))
         return False
 
     if story.get('url', '') and not story.get('text', ''):

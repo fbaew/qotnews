@@ -27,7 +27,9 @@ def api(route):
 
 def story(ref):
     html = api(ref)
-    if not html: return False
+    if not html:
+        logging.info('Bad http GET response.')
+        return False
 
     soup = BeautifulSoup(html, features='html.parser')
 
