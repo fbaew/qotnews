@@ -10,9 +10,6 @@ from bs4 import BeautifulSoup
 import settings
 from feeds import hackernews, reddit, tildes, manual, lobsters
 
-OUTLINE_API = 'https://api.outline.com/v3/parse_article'
-READ_API = 'http://127.0.0.1:33843'
-
 INVALID_DOMAINS = ['youtube.com', 'bloomberg.com', 'wsj.com', 'sec.gov']
 TWO_DAYS = 60*60*24*2
 
@@ -33,27 +30,6 @@ def list():
     return feed
 
 def get_article(url):
-    try:
-        params = {'source_url': url}
-        headers = {'Referer': 'https://outline.com/'}
-        r = requests.get(OUTLINE_API, params=params, headers=headers, timeout=20)
-        if r.status_code == 429:
-            logging.info('Rate limited by outline, sleeping 30s and skipping...')
-            time.sleep(30)
-            return ''
-        if r.status_code != 200:
-            raise Exception('Bad response code ' + str(r.status_code))
-        html = r.json()['data']['html']
-        if 'URL is not supported by Outline' in html:
-            raise Exception('URL not supported by Outline')
-        return html
-    except KeyboardInterrupt:
-        raise
-    except BaseException as e:
-        logging.error('Problem outlining article: {}'.format(str(e)))
-
-    logging.info('Trying our server instead...')
-
     if not settings.READER_URL:
         logging.info('Readerserver not configured, aborting.')
         return ''
