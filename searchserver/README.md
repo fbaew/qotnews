@@ -3,7 +3,7 @@
 Download MeiliSearch with:
 
 ```
-wget https://github.com/meilisearch/MeiliSearch/releases/download/v0.21.1/meilisearch-linux-amd64
+wget https://github.com/meilisearch/meilisearch/releases/download/v0.27.0/meilisearch-linux-amd64
 chmod +x meilisearch-linux-amd64
 ```
 

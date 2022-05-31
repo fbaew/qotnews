@@ -21,7 +21,7 @@ def put_stories(stories):
     return search.meili_api(requests.post, 'indexes/qotnews/documents', stories)
 
 def get_update(update_id):
-    return search.meili_api(requests.get, 'indexes/qotnews/updates/{}'.format(update_id))
+    return search.meili_api(requests.get, 'tasks/{}'.format(update_id))
 
 def count_stories():
     try:
@@ -64,10 +64,10 @@ if __name__ == '__main__':
             count += 1
 
         res = put_stories(stories)
-        update_id = res['updateId']
+        update_id = res['uid']
 
         print('Waiting for processing', end='')
-        while get_update(update_id)['status'] != 'processed':
+        while get_update(update_id)['status'] != 'succeeded':
             time.sleep(0.5)
             print('.', end='', flush=True)
 
