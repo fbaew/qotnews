@@ -124,9 +124,11 @@ def story(sid):
 @flask_app.route('/search')
 def index():
     return render_template('index.html',
-            title='Feed',
-            url='news.t0.vc',
-            description='Hacker News, Reddit, Lobsters, and Tildes articles rendered in reader mode')
+        title='Feed',
+        url='news.t0.vc',
+        description='Hacker News, Reddit, Lobsters, and Tildes articles rendered in reader mode',
+        robots='index',
+    )
 
 @flask_app.route('/<sid>', strict_slashes=False)
 @flask_app.route('/<sid>/c', strict_slashes=False)
@@ -151,9 +153,11 @@ def static_story(sid):
     url = url.replace('www.', '')
 
     return render_template('index.html',
-            title=story['title'],
-            url=url,
-            description=description)
+        title=story['title'],
+        url=url,
+        description=description,
+        robots='noindex',
+    )
 
 http_server = WSGIServer(('', 33842), flask_app)
 
