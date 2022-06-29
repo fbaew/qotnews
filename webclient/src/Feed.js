@@ -53,6 +53,7 @@ class Feed extends React.Component {
 			<div className='container'>
 				<Helmet>
 					<title>Feed - QotNews</title>
+					<meta name="robots" content="index">
 				</Helmet>
 				{error && <p>Connection error?</p>}
 				{stories ?
