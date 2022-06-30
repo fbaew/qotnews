@@ -124,7 +124,7 @@ def story(sid):
 @flask_app.route('/search')
 def index():
     return render_template('index.html',
-        title='Feed',
+        title='QotNews',
         url='news.t0.vc',
         description='Hacker News, Reddit, Lobsters, and Tildes articles rendered in reader mode',
         robots='index',
@@ -153,7 +153,7 @@ def static_story(sid):
     url = url.replace('www.', '')
 
     return render_template('index.html',
-        title=story['title'],
+        title=story['title'] + ' | QotNews',
         url=url,
         description=description,
         robots='noindex',

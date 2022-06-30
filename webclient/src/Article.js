@@ -67,7 +67,7 @@ class Article extends React.Component {
 				{story ?
 					<div className='article'>
 						<Helmet>
-							<title>{story.title} - QotNews</title>
+							<title>{story.title} | QotNews</title>
 							<meta name="robots" content="noindex" />
 						</Helmet>
 

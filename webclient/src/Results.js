@@ -56,7 +56,7 @@ class Results extends React.Component {
 		return (
 			<div className='container'>
 				<Helmet>
-					<title>Feed - QotNews</title>
+					<title>Search Results | QotNews</title>
 				</Helmet>
 				{error && <p>Connection error?</p>}
 				{stories ?
