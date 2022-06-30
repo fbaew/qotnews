@@ -116,6 +116,7 @@ class Article extends React.Component {
 					<div className='article'>
 						<Helmet>
 							<title>{story.title} - QotNews Comments</title>
+							<meta name="robots" content="noindex" />
 						</Helmet>
 
 						<h1>{story.title}</h1>
