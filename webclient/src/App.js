@@ -56,20 +56,7 @@ class App extends React.Component {
 				<Router>
 					<div className='container menu'>
 						<p>
-							<Switch>
-								<Route path='/' exact>
-									<Link to='/'>QotNews - Feed</Link>
-								</Route>
-								<Route path='/search'>
-									<Link to='/'>QotNews - Search</Link>
-								</Route>
-								<Route path='/:id' exact>
-									<Link to='/'>QotNews - Article</Link>
-								</Route>
-								<Route path='/:id/c'>
-									<Link to='/'>QotNews - Comments</Link>
-								</Route>
-							</Switch>
+							<Link to='/'>QotNews</Link>
 
 							<span className='theme'>Theme: <a href='#' onClick={() => this.light()}>Light</a> - <a href='#' onClick={() => this.dark()}>Dark</a></span>
 							<br />
