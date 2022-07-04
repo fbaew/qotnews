@@ -15,6 +15,7 @@ import traceback
 import time
 from urllib.parse import urlparse, parse_qs
 
+import settings
 import database
 import search
 import feed
@@ -27,7 +28,6 @@ from flask_cors import CORS
 database.init()
 search.init()
 
-FEED_LENGTH = 75
 news_index = 0
 
 def new_id():
@@ -43,7 +43,7 @@ cors = CORS(flask_app)
 @flask_app.route('/api')
 def api():
     skip = request.args.get('skip', 0)
-    limit = request.args.get('limit', FEED_LENGTH)
+    limit = request.args.get('limit', settings.FEED_LENGTH)
     stories = database.get_stories(limit, skip)
     # hacky nested json
     res = Response('{"stories":[' + ','.join(stories) + ']}')
@@ -177,7 +177,7 @@ def feed_thread():
                         logging.info('Already have ID / ref, skipping.')
                         continue
 
-            ref_list = database.get_reflist(FEED_LENGTH)
+            ref_list = database.get_reflist(settings.FEED_LENGTH)
 
             # update current stories
             if news_index < len(ref_list):
@@ -204,7 +204,7 @@ def feed_thread():
             gevent.sleep(6)
 
             news_index += 1
-            if news_index == FEED_LENGTH: news_index = 0
+            if news_index == settings.FEED_LENGTH: news_index = 0
 
     except KeyboardInterrupt:
         logging.info('Ending feed thread...')
