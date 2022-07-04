@@ -35,6 +35,7 @@ app.post('/', (req, res) => {
 	const url = req.body.url;
 	const requestOptions = {
 		url: url,
+		gzip: true,
 		//headers: {'User-Agent': 'Googlebot/2.1 (+http://www.google.com/bot.html)'},
 		//headers: {'User-Agent': 'Twitterbot/1.0'},
 		headers: {
