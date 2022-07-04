@@ -58,7 +58,7 @@ class App extends React.Component {
 						<p>
 							<Link to='/'>QotNews</Link>
 
-							<span className='theme'>Theme: <a href='#' onClick={() => this.light()}>Light</a> - <a href='#' onClick={() => this.dark()}>Dark</a></span>
+							<span className='theme'><a href='#' onClick={() => this.light()}>Light</a> - <a href='#' onClick={() => this.dark()}>Dark</a></span>
 							<br />
 							<span className='slogan'>Hacker News, Reddit, Lobsters, and Tildes articles rendered in reader mode.</span>
 						</p>

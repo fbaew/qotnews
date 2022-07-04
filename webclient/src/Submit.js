@@ -41,7 +41,7 @@ class Submit extends Component {
 			<span className='search'>
 				<form onSubmit={this.submitArticle}>
 					<input
-						placeholder='Submit Article'
+						placeholder='Submit URL'
 						ref={this.inputRef}
 					/>
 				</form>
