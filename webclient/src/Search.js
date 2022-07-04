@@ -37,7 +37,7 @@ class Search extends Component {
 			<span className='search'>
 				<form onSubmit={this.searchAgain}>
 					<input
-						placeholder='Search... (fixed)'
+						placeholder='Search...'
 						value={search}
 						onChange={this.searchArticles}
 						ref={this.inputRef}

@@ -59,8 +59,7 @@ if __name__ == '__main__':
             story = database.get_story(sid)
             print('Indexing {}/{} id: {} title: {}'.format(count, num_stories, sid[0], story.title))
             story_obj = json.loads(story.meta_json)
-            to_add = dict(title=story_obj['title'], id=story_obj['id'], date=story_obj['date'])
-            stories.append(to_add)
+            stories.append(story_obj)
             count += 1
 
         res = put_stories(stories)

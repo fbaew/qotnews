@@ -8,12 +8,15 @@ import settings
 
 SEARCH_ENABLED = bool(settings.MEILI_URL)
 
-def meili_api(method, route, json=None, params=None):
+def meili_api(method, route, json=None, params=None, parse_json=True):
     try:
         r = method(settings.MEILI_URL + route, json=json, params=params, timeout=4)
         if r.status_code > 299:
             raise Exception('Bad response code ' + str(r.status_code))
-        return r.json()
+        if parse_json:
+            return r.json()
+        else:
+            return r.text
     except KeyboardInterrupt:
         raise
     except BaseException as e:
@@ -29,9 +32,9 @@ def update_rankings():
     return meili_api(requests.post, 'indexes/qotnews/settings/ranking-rules', json=json)
 
 def update_attributes():
-    json = ['title']
+    json = ['title', 'url', 'author']
     r = meili_api(requests.post, 'indexes/qotnews/settings/searchable-attributes', json=json)
-    json = ['id']
+    json = ['id', 'ref', 'source', 'author', 'author_link', 'score', 'date', 'title', 'link', 'url', 'num_comments']
     r = meili_api(requests.post, 'indexes/qotnews/settings/displayed-attributes', json=json)
     return r
 
@@ -45,18 +48,17 @@ def init():
 
 def put_story(story):
     if not SEARCH_ENABLED: return
-    to_add = dict(title=story['title'], id=story['id'], date=story['date'])
-    return meili_api(requests.post, 'indexes/qotnews/documents', [to_add])
+    return meili_api(requests.post, 'indexes/qotnews/documents', [story])
 
 def search(q):
     if not SEARCH_ENABLED: return []
     params = dict(q=q, limit=250)
-    r = meili_api(requests.get, 'indexes/qotnews/search', params=params)
-    return r['hits']
+    r = meili_api(requests.get, 'indexes/qotnews/search', params=params, parse_json=False)
+    return r
     
 if __name__ == '__main__':
     init()
 
     print(update_rankings())
 
-    print(search('qot'))
+    print(search('facebook'))

@@ -56,10 +56,8 @@ def apisearch():
     if len(q) >= 3:
         results = search.search(q)
     else:
-        results = []
-    story_metas = [database.get_story(x['id']).meta_json for x in results]
-    # hacky nested json
-    res = Response('{"results":[' + ','.join(story_metas) + ']}')
+        results = '[]'
+    res = Response(results)
     res.headers['content-type'] = 'application/json'
     return res
 

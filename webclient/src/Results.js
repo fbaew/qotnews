@@ -29,7 +29,7 @@ class Results extends React.Component {
 			.then(res => res.json())
 			.then(
 				(result) => {
-					this.setState({ stories: result.results });
+					this.setState({ stories: result.hits });
 				},
 				(error) => {
 					if (error.message !== 'The operation was aborted. ') {
