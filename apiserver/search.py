@@ -16,6 +16,7 @@ def meili_api(method, route, json=None, params=None, parse_json=True):
         if parse_json:
             return r.json()
         else:
+            r.encoding = 'utf-8'
             return r.text
     except KeyboardInterrupt:
         raise
@@ -52,7 +53,7 @@ def put_story(story):
 
 def search(q):
     if not SEARCH_ENABLED: return []
-    params = dict(q=q, limit=250)
+    params = dict(q=q, limit=100)
     r = meili_api(requests.get, 'indexes/qotnews/search', params=params, parse_json=False)
     return r
     
