@@ -23,28 +23,14 @@ def put_stories(stories):
 def get_update(update_id):
     return search.meili_api(requests.get, 'tasks/{}'.format(update_id))
 
-def count_stories():
-    try:
-        session = database.Session()
-        return session.query(database.Story).count()
-    finally:
-        session.close()
-
-def get_story_list():
-    try:
-        session = database.Session()
-        return session.query(database.Story.sid).all()
-    finally:
-        session.close()
-
 if __name__ == '__main__':
-    num_stories = count_stories()
+    num_stories = database.count_stories()
 
     print('Reindex {} stories?'.format(num_stories))
     print('Press ENTER to continue, ctrl-c to cancel')
     input()
 
-    story_list = get_story_list()
+    story_list = database.get_story_list()
 
     count = 1
     while len(story_list):

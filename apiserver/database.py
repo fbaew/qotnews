@@ -101,6 +101,20 @@ def del_ref(ref):
     finally:
         session.close()
 
+def count_stories():
+    try:
+        session = Session()
+        return session.query(Story).count()
+    finally:
+        session.close()
+
+def get_story_list():
+    try:
+        session = Session()
+        return session.query(Story.sid).all()
+    finally:
+        session.close()
+
 if __name__ == '__main__':
     init()
 
