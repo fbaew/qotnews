@@ -76,10 +76,6 @@
 	border-left: 1px solid #440000;
 }
 
-.red .toggleDot {
-	background-color: #440000;
-}
-
-.red .forwardDot {
+.red .dot {
 	background-color: #440000;
 }

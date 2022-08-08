@@ -25,12 +25,34 @@ export class ToggleDot extends React.Component {
 	render() {
 		const id = this.props.id;
 		const article = this.props.article;
+
 		return (
-			<div className='toggleDot'>
+			<div className='dot toggleDot'>
 				<div className='button'>
 					<Link to={'/' + id + (article ? '' : '/c')}>
 						{article ? '' : ''}
 					</Link>
+				</div>
+			</div>
+		);
+	}
+}
+
+export class BackwardDot extends React.Component {
+	goBackward() {
+		localStorage.setItem('scrollLock', 'True');
+		window.history.back();
+	}
+
+	render() {
+		const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+		if (!isMobile) return null;
+		if (!document.fullscreenElement) return null;
+
+		return (
+			<div className='dot backwardDot' onClick={this.goBackward}>
+				<div className='button'>
+					
 				</div>
 			</div>
 		);
@@ -48,9 +70,9 @@ export class ForwardDot extends React.Component {
 		if (!isMobile) return null;
 
 		return (
-			<div className='forwardDot' onClick={this.goForward}>
+			<div className='dot forwardDot' onClick={this.goForward}>
 				<div className='button'>
-					
+					
 				</div>
 			</div>
 		);

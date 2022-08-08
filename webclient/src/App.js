@@ -5,7 +5,7 @@ import './Style-light.css';
 import './Style-dark.css';
 import './Style-red.css';
 import './fonts/Fonts.css';
-import { ForwardDot } from './utils.js';
+import { BackwardDot, ForwardDot } from './utils.js';
 import Feed from './Feed.js';
 import Article from './Article.js';
 import Comments from './Comments.js';
@@ -53,6 +53,23 @@ class App extends React.Component {
 		}
 	}
 
+	goFullScreen() {
+		if ('wakeLock' in navigator) {
+			navigator.wakeLock.request('screen');
+		}
+
+		document.body.requestFullscreen({ navigationUI: 'hide' }).then(() => {
+			window.addEventListener('resize', () => this.forceUpdate());
+			this.forceUpdate();
+		});
+	};
+
+	exitFullScreen() {
+		document.exitFullscreen().then(() => {
+			this.forceUpdate();
+		});
+	};
+
 	render() {
 		const theme = this.state.theme;
 		document.body.style.backgroundColor = theme ? '#000' : '#eeeeee';
@@ -70,6 +87,11 @@ class App extends React.Component {
 						</p>
 						<Route path='/(|search)' component={Search} />
 						<Route path='/(|search)' component={Submit} />
+						<Route path='/(|search)' render={() => !document.fullscreenElement ?
+							<button className='fullscreen' onClick={() => this.goFullScreen()}>Enter Fullscreen</button>
+						:
+							<button className='fullscreen' onClick={() => this.exitFullScreen()}>Exit Fullscreen</button>
+						} />
 					</div>
 
 					<Route path='/' exact render={(props) => <Feed {...props} updateCache={this.updateCache} />} />
@@ -79,6 +101,7 @@ class App extends React.Component {
 					</Switch>
 					<Route path='/:id/c' exact render={(props) => <Comments {...props} cache={this.cache} />} />
 
+					<BackwardDot />
 					<ForwardDot />
 
 					<ScrollToTop />
