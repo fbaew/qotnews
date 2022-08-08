@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Route, Link, Switch } from 'react-router-dom';
 import localForage from 'localforage';
 import './Style-light.css';
 import './Style-dark.css';
+import './Style-red.css';
 import './fonts/Fonts.css';
 import { ForwardDot } from './utils.js';
 import Feed from './Feed.js';
@@ -38,6 +39,11 @@ class App extends React.Component {
 		localStorage.setItem('theme', 'dark');
 	}
 
+	red() {
+		this.setState({ theme: 'red' });
+		localStorage.setItem('theme', 'red');
+	}
+
 	componentDidMount() {
 		if (!this.cache.length) {
 			localForage.iterate((value, key) => {
@@ -49,7 +55,7 @@ class App extends React.Component {
 
 	render() {
 		const theme = this.state.theme;
-		document.body.style.backgroundColor = theme === 'dark' ? '#000' : '#eeeeee';
+		document.body.style.backgroundColor = theme ? '#000' : '#eeeeee';
 
 		return (
 			<div className={theme}>
@@ -58,7 +64,7 @@ class App extends React.Component {
 						<p>
 							<Link to='/'>QotNews</Link>
 
-							<span className='theme'><a href='#' onClick={() => this.light()}>Light</a> - <a href='#' onClick={() => this.dark()}>Dark</a></span>
+							<span className='theme'><a href='#' onClick={() => this.light()}>Light</a> - <a href='#' onClick={() => this.dark()}>Dark</a> - <a href='#' onClick={() => this.red()}>Red</a></span>
 							<br />
 							<span className='slogan'>Hacker News, Reddit, Lobsters, and Tildes articles rendered in reader mode.</span>
 						</p>
