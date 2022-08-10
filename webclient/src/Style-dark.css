@@ -43,6 +43,7 @@
 	text-decoration: none;
 }
 
+.dark .story-text video,
 .dark .story-text img {
 	filter: brightness(50%);
 }

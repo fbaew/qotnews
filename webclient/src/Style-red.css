@@ -59,6 +59,7 @@
 	text-decoration: none;
 }
 
+.red .story-text video,
 .red .story-text img {
 	filter: grayscale(100%) brightness(20%) sepia(100%) hue-rotate(-50deg) saturate(600%) contrast(0.8);
 }

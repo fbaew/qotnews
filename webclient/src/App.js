@@ -73,6 +73,10 @@ class App extends React.Component {
 	render() {
 		const theme = this.state.theme;
 		document.body.style.backgroundColor = theme ? '#000' : '#eeeeee';
+		const fullScreenAvailable = document.fullscreenEnabled ||
+			document.mozFullscreenEnabled ||
+			document.webkitFullscreenEnabled ||
+			document.msFullscreenEnabled;
 
 		return (
 			<div className={theme}>
@@ -87,11 +91,13 @@ class App extends React.Component {
 						</p>
 						<Route path='/(|search)' component={Search} />
 						<Route path='/(|search)' component={Submit} />
-						<Route path='/(|search)' render={() => !document.fullscreenElement ?
-							<button className='fullscreen' onClick={() => this.goFullScreen()}>Enter Fullscreen</button>
-						:
-							<button className='fullscreen' onClick={() => this.exitFullScreen()}>Exit Fullscreen</button>
-						} />
+						{fullScreenAvailable &&
+							<Route path='/(|search)' render={() => !document.fullscreenElement ?
+								<button className='fullscreen' onClick={() => this.goFullScreen()}>Enter Fullscreen</button>
+							:
+								<button className='fullscreen' onClick={() => this.exitFullScreen()}>Exit Fullscreen</button>
+							} />
+						}
 					</div>
 
 					<Route path='/' exact render={(props) => <Feed {...props} updateCache={this.updateCache} />} />
