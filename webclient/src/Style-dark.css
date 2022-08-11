@@ -11,6 +11,12 @@
 	border: 1px solid #828282;
 }
 
+.dark button {
+	background-color: #444444;
+	border-color: #bbb;
+	color: #ddd;
+}
+
 .dark .item {
 	color: #828282;
 }
