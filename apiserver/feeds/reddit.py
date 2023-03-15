@@ -32,10 +32,7 @@ def feed():
         return [x.id for x in reddit.subreddit(subs).hot()]
     except KeyboardInterrupt:
         raise
-    except PRAWException as e:
-        logging.critical('Problem hitting reddit API: {}'.format(str(e)))
-        return []
-    except PrawcoreException as e:
+    except BaseException as e:
         logging.critical('Problem hitting reddit API: {}'.format(str(e)))
         return []
 
