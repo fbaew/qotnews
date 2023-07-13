@@ -107,7 +107,20 @@ def story(ref):
     ch = a.find('header', class_='topic-comments-header')
     s['num_comments'] = int(ch.h2.string.split(' ')[0]) if ch else 0
 
-    if s['score'] < 32 and s['num_comments'] < 24:
+    if s['group'].split('.')[0] not in [
+        '~arts',
+        '~comp',
+        '~creative',
+        '~design',
+        '~engineering',
+        '~finance',
+        '~science',
+        '~tech',
+    ]:
+        logging.info('Group ({}) not in whitelist.'.format(s['group']))
+        return False
+
+    if s['score'] < 15 and s['num_comments'] < 15:
         logging.info('Score ({}) or num comments ({}) below threshold.'.format(s['score'], s['num_comments']))
         return False
 
