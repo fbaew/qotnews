@@ -67,7 +67,7 @@ def iter_comments(flat_comments):
     parent_stack = []
     for comment in flat_comments:
         c = make_comment(comment)
-        indent = comment['indent_level']
+        indent = comment['depth']
 
         if indent == 1:
             nested_comments.append(c)
@@ -100,13 +100,7 @@ def story(ref):
     s['title'] = r.get('title', '')
     s['link'] = SITE_LINK(ref)
     s['url'] = r.get('url', '')
-
-    try:
-        s['comments'] = iter_comments(r['comments'])
-    except TypeError:
-        logging.exception('TypeError iterating lobsters comments, skipping article.')
-        return False
-
+    s['comments'] = iter_comments(r['comments'])
     s['num_comments'] = r['comment_count']
 
     if 'description' in r and r['description']:
