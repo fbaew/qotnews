@@ -100,7 +100,13 @@ def story(ref):
     s['title'] = r.get('title', '')
     s['link'] = SITE_LINK(ref)
     s['url'] = r.get('url', '')
-    s['comments'] = iter_comments(r['comments'])
+
+    try:
+        s['comments'] = iter_comments(r['comments'])
+    except TypeError:
+        logging.exception('TypeError iterating lobsters comments, skipping article.')
+        return False
+
     s['num_comments'] = r['comment_count']
 
     if 'description' in r and r['description']:
