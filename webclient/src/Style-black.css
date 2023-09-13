@@ -1,64 +1,68 @@
-.dark {
+.black {
 	color: #ddd;
 }
 
-.dark a {
+.black a {
 	color: #ddd;
 }
 
-.dark input {
+.black input {
 	color: #ddd;
 	border: 1px solid #828282;
 }
 
-.dark button {
+.black button {
 	background-color: #444444;
 	border-color: #bbb;
 	color: #ddd;
 }
 
-.dark .item {
+.black .item {
 	color: #828282;
 }
 
-.dark .item a {
+.black .item .source-logo {
+	filter: grayscale(1);
+}
+
+.black .item a {
 	color: #828282;
 }
 
-.dark .item a.link {
+.black .item a.link {
 	color: #ddd;
 }
-.dark .item a.link:visited {
+.black .item a.link:visited {
 	color: #828282;
 }
 
-.dark .item .info a.hot {
+.black .item .info a.hot {
 	color: #cccccc;
 }
 
-.dark .article a {
+.black .article a {
 	border-bottom: 1px solid #aaaaaa;
 }
 
-.dark .article u {
+.black .article u {
 	border-bottom: 1px solid #aaaaaa;
 	text-decoration: none;
 }
 
-.dark .story-text video,
-.dark .story-text img {
+.black .story-text video,
+.black .story-text img {
 	filter: brightness(50%);
 }
 
-.dark .article .info {
+.black .article .info {
 	color: #828282;
 }
 
-.dark .article .info a {
+.black .article .info a {
 	border-bottom: none;
 	color: #828282;
 }
 
-.dark .comment.lined {
+.black .comment.lined {
 	border-left: 1px solid #444444;
 }

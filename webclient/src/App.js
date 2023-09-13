@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Route, Link, Switch } from 'react-router-dom';
 import localForage from 'localforage';
 import './Style-light.css';
 import './Style-dark.css';
+import './Style-black.css';
 import './Style-red.css';
 import './fonts/Fonts.css';
 import { BackwardDot, ForwardDot } from './utils.js';
@@ -39,6 +40,11 @@ class App extends React.Component {
 		localStorage.setItem('theme', 'dark');
 	}
 
+	black() {
+		this.setState({ theme: 'black' });
+		localStorage.setItem('theme', 'black');
+	}
+
 	red() {
 		this.setState({ theme: 'red' });
 		localStorage.setItem('theme', 'red');
@@ -72,7 +78,17 @@ class App extends React.Component {
 
 	render() {
 		const theme = this.state.theme;
-		document.body.style.backgroundColor = theme ? '#000' : '#eeeeee';
+
+		if (theme === 'dark') {
+			document.body.style.backgroundColor = '#1a1a1a';
+		} else if (theme === 'black') {
+			document.body.style.backgroundColor = '#000';
+		} else if (theme === 'red') {
+			document.body.style.backgroundColor = '#000';
+		} else {
+			document.body.style.backgroundColor = '#eeeeee';
+		}
+
 		const fullScreenAvailable = document.fullscreenEnabled ||
 			document.mozFullscreenEnabled ||
 			document.webkitFullscreenEnabled ||
@@ -85,7 +101,7 @@ class App extends React.Component {
 						<p>
 							<Link to='/'>QotNews</Link>
 
-							<span className='theme'><a href='#' onClick={() => this.light()}>Light</a> - <a href='#' onClick={() => this.dark()}>Dark</a> - <a href='#' onClick={() => this.red()}>Red</a></span>
+							<span className='theme'><a href='#' onClick={() => this.light()}>Light</a> - <a href='#' onClick={() => this.dark()}>Dark</a> - <a href='#' onClick={() => this.black()}>Black</a> - <a href='#' onClick={() => this.red()}>Red</a></span>
 							<br />
 							<span className='slogan'>Hacker News, Reddit, Lobsters, and Tildes articles rendered in reader mode.</span>
 						</p>
