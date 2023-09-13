@@ -80,6 +80,8 @@ def iter_comments(flat_comments):
     return nested_comments
 
 def story(ref):
+    return False  # TODO: remove
+
     r = api(API_ITEM, ref)
     if not r:
         logging.info('Bad Lobsters API response.')
