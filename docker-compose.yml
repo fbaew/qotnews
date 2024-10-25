@@ -1,0 +1,40 @@
+services:
+  apiserver:
+    build: ./apiserver
+    volumes:
+      - ./apiserver:/app
+      - webclient-static:/webclient/build
+    command: bash -c "virtualenv -p python3 env && source env/bin/activate && pip install -r requirements.txt && python server.py"
+    environment:
+      - CLIENT_ID=your_client_id
+      - CLIENT_SECRET=your_client_secret
+    networks:
+      - newsnet
+    depends_on:
+      - readerserver
+      - webclient
+    ports:
+        - "80:33842"  # Map public port 80 to internal port 33842
+
+  readerserver:
+    build: ./readerserver
+    volumes:
+      - ./readerserver:/app
+    command: node main.js
+    networks:
+      - newsnet
+
+  webclient:
+    build: ./webclient
+    volumes:
+      - ./webclient:/app
+      - webclient-static:/app/build
+    # command: tail -f /dev/null
+    networks:
+      - newsnet
+
+networks:
+  newsnet:
+
+volumes:
+  webclient-static:
