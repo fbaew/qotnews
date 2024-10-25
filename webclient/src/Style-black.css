@@ -1,0 +1,68 @@
+.black {
+	color: #ddd;
+}
+
+.black a {
+	color: #ddd;
+}
+
+.black input {
+	color: #ddd;
+	border: 1px solid #828282;
+}
+
+.black button {
+	background-color: #444444;
+	border-color: #bbb;
+	color: #ddd;
+}
+
+.black .item {
+	color: #828282;
+}
+
+.black .item .source-logo {
+	filter: grayscale(1);
+}
+
+.black .item a {
+	color: #828282;
+}
+
+.black .item a.link {
+	color: #ddd;
+}
+.black .item a.link:visited {
+	color: #828282;
+}
+
+.black .item .info a.hot {
+	color: #cccccc;
+}
+
+.black .article a {
+	border-bottom: 1px solid #aaaaaa;
+}
+
+.black .article u {
+	border-bottom: 1px solid #aaaaaa;
+	text-decoration: none;
+}
+
+.black .story-text video,
+.black .story-text img {
+	filter: brightness(50%);
+}
+
+.black .article .info {
+	color: #828282;
+}
+
+.black .article .info a {
+	border-bottom: none;
+	color: #828282;
+}
+
+.black .comment.lined {
+	border-left: 1px solid #444444;
+}

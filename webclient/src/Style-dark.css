@@ -1,0 +1,64 @@
+.dark {
+	color: #ddd;
+}
+
+.dark a {
+	color: #ddd;
+}
+
+.dark input {
+	color: #ddd;
+	border: 1px solid #828282;
+}
+
+.dark button {
+	background-color: #444444;
+	border-color: #bbb;
+	color: #ddd;
+}
+
+.dark .item {
+	color: #828282;
+}
+
+.dark .item a {
+	color: #828282;
+}
+
+.dark .item a.link {
+	color: #ddd;
+}
+.dark .item a.link:visited {
+	color: #828282;
+}
+
+.dark .item .info a.hot {
+	color: #cccccc;
+}
+
+.dark .article a {
+	border-bottom: 1px solid #aaaaaa;
+}
+
+.dark .article u {
+	border-bottom: 1px solid #aaaaaa;
+	text-decoration: none;
+}
+
+.dark .story-text video,
+.dark .story-text img {
+	filter: brightness(50%);
+}
+
+.dark .article .info {
+	color: #828282;
+}
+
+.dark .article .info a {
+	border-bottom: none;
+	color: #828282;
+}
+
+.dark .comment.lined {
+	border-left: 1px solid #444444;
+}

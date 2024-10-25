@@ -1,0 +1,82 @@
+.red {
+	color: #b00;
+	scrollbar-color: #b00 #440000;
+}
+
+.red a {
+	color: #b00;
+}
+
+.red input {
+	color: #b00;
+	border: 1px solid #690000;
+}
+
+.red input::placeholder {
+	color: #690000;
+}
+
+.red hr {
+	background-color: #690000;
+}
+
+.red button {
+	background-color: #440000;
+	border-color: #b00;
+	color: #b00;
+}
+
+.red .item,
+.red .slogan {
+	color: #690000;
+}
+
+.red .item .source-logo {
+	display: none;
+}
+
+.red .item a {
+	color: #690000;
+}
+
+.red .item a.link {
+	color: #b00;
+}
+.red .item a.link:visited {
+	color: #690000;
+}
+
+.red .item .info a.hot {
+	color: #cc0000;
+}
+
+.red .article a {
+	border-bottom: 1px solid #aa0000;
+}
+
+.red .article u {
+	border-bottom: 1px solid #aa0000;
+	text-decoration: none;
+}
+
+.red .story-text video,
+.red .story-text img {
+	filter: grayscale(100%) brightness(20%) sepia(100%) hue-rotate(-50deg) saturate(600%) contrast(0.8);
+}
+
+.red .article .info {
+	color: #690000;
+}
+
+.red .article .info a {
+	border-bottom: none;
+	color: #690000;
+}
+
+.red .comment.lined {
+	border-left: 1px solid #440000;
+}
+
+.red .dot {
+	background-color: #440000;
+}
