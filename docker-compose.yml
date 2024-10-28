@@ -26,6 +26,20 @@ services:
     networks:
       - newsnet
 
+  searchserver:
+    build: ./searchserver
+    volumes:
+      - ./searchserver:/app
+    # Set the envvar MEILI_NO_ANALYTICS to true to disable analytics
+    environment:
+      - MEILI_NO_ANALYTICS=true
+      - MEILI_HTTP_ADDR=0.0.0.0:7700
+
+    # Start the server by running ./meilisearch-linux-amd64
+    command: ./meilisearch-linux-amd64
+    networks:
+      - newsnet
+
 networks:
   newsnet:
 

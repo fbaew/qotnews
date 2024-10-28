@@ -1,6 +1,14 @@
 # QotNews
 
-## Self-hosting
+## Self-hosting with Docker
+
+A docker-compose.yml is provided. Modify `apiserver/settings.py` as desired, and build the containers using `docker-compose build`. Run them in daemon mode with `docker-compose up -d `.
+
+There are two containers:
+- apiserver, which runs the API in a Python environment
+- readerserver, which provides a nodejs environment for building the web client and for running the readability server.
+
+## Self-hosting without Docker
 
 Install dependencies:
 
