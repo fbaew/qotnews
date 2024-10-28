@@ -4,9 +4,22 @@
 
 A docker-compose.yml is provided. Modify `apiserver/settings.py` as desired, and build the containers using `docker-compose build`. Run them in daemon mode with `docker-compose up -d `.
 
-There are two containers:
+There are three containers:
 - apiserver, which runs the API in a Python environment
 - readerserver, which provides a nodejs environment for building the web client and for running the readability server.
+- searchserver, which runs meilisearch.
+
+Before starting the containers, you should configure Meili and the Reader server. 
+```
+# Meilisearch server URL
+# Leave blank if not using search
+MEILI_URL = 'http://searchserver:7700/'
+# MEILI_URL = ''
+
+# Readerserver URL
+# Leave blank if not using, but that defeats the whole point
+READER_URL = 'http://readerserver:33843/'
+```
 
 ## Self-hosting without Docker
 

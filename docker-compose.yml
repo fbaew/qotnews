@@ -8,6 +8,8 @@ services:
     environment:
       - CLIENT_ID=your_client_id
       - CLIENT_SECRET=your_client_secret
+      - MEILI_URL=http://searchserver:7700/
+      - READER_URL=http://readerserver:33843/
     networks:
       - newsnet
     depends_on:
