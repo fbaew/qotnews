@@ -15,7 +15,7 @@ services:
     depends_on:
       - readerserver
     ports:
-        - "80:33842"  # Map public port 80 to internal port 33842
+        - "33842:33842"  # Map public port 80 to internal port 33842
 
   readerserver:
     build: ./readerserver
